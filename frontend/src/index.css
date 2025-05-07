@@ -79,17 +79,20 @@ body{
 
 .navBarDiv{
   top: 0;
-  z-index: 1000;
   display: flex;
   position: sticky;
   height: 4rem;
-  width: 99vw;
+  width: 95vw;
+  background-color: #111315;
+  padding: 0.5rem 2rem;
 }
 
 .navBarLeft{
-  display: grid;
+  display: flex;
+  flex-direction: column;
   font-size: 90%;
-  margin: 0rem auto 0rem 0rem;
+  margin: 1rem auto 0rem 0rem;
+  line-height: 1rem;
 }
 
 .userPosts{
