@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
 import backend from "./host";
-
+import Reply from "./Reply.jsx";
 
 const QuoteComp = (props)=>{
 
@@ -11,7 +11,7 @@ const QuoteComp = (props)=>{
     let [followList, setFollowList] = useState(props.following)
     let [flag, setFlag] = useState(null)
     let [followFlag, setFollowFlag] = useState(null)
-
+    let [replyFlag, setReplyFlag] = useState(null)
 
     const like = ()=>{
 
@@ -35,10 +35,11 @@ const QuoteComp = (props)=>{
         }
     }
 
-    const follow = ()=>{
-        axios.post(`${backend}/follow`, {userId: props.userId, authorId: props.data.authorId})
-        .catch(err=> console.log(err))
+    const reply = ()=>{
+        // axios.post(`${backend}/follow`, {userId: props.userId, authorId: props.data.authorId})
+        // .catch(err=> console.log(err))
     
+        replyFlag === "pass" ? setReplyFlag(null) : setReplyFlag("pass")
     }
 
 
@@ -56,8 +57,21 @@ const QuoteComp = (props)=>{
             <div className="quoteComponent">
                 <p className="authorName">{props.data.author}</p>
                 <p className="quoteHere">{props.data.quote}</p>
+            </div>
 
-                <div className="quoteActions">
+            {replyFlag === "pass" && (<span>
+                <button 
+                    className="replyClose"
+                    onClick={()=>reply()}
+                ><ion-icon  name="close-circle-outline"></ion-icon></button>
+                <Reply 
+                    doubtAuthor = {"ma man"}
+                    doubtContent = {"meaw"}
+                    data = {props.data}
+                /></span>
+            )}
+
+            <div className="quoteActions">
                     <span className="flex">
                         <button className="likeButton"
                             onClick={()=>like()}
@@ -67,13 +81,11 @@ const QuoteComp = (props)=>{
                     </span>
                     {followFlag === undefined && 
                         <button className="followButton"
-                            onClick={()=>follow()}
+                            onClick={()=>reply()}
                         >Reply <ion-icon name="person-add"></ion-icon></button>
                     }
                 
-                </div>
-            </div>
-            
+                </div>            
         </div>
     )
 }

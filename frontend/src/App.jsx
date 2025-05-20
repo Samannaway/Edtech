@@ -3,11 +3,11 @@ import NavBar from "./navbar"
 import Read from "./read"
 import Create from "./create"
 import Login from "./login"
-import { page, changePage} from "./universalv"
 import axios from "axios"
 import backend from "./host"
 import Profile from "./Profile"
 import Followers from "./Followers"
+import Reply from "./Reply"
 
 const App = (props)=>{
 
@@ -18,9 +18,9 @@ const App = (props)=>{
     axios.post(`${backend}/auth/google/verify`, {}, {withCredentials: true})
     .then(res =>{
       if (res.data == null) {
-        setSelector(<Profile />)
+        setSelector(<Read />)
       }else{
-        setSelector(<Profile data={res.data.userData}/>)
+        setSelector(<Read data={res.data.userData}/>)
         setUserData(res.data.userData)
       }
     })
