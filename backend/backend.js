@@ -54,6 +54,7 @@ const quotesSchema = new mongoose.Schema({
     authorId: String,
     likes: Number,
     likeList : Array,
+    replies: Array,
 })
 
 
@@ -126,6 +127,7 @@ app.get('/auth/google/callback',
 
 app.post('/auth/google/verify', (req,res)=>{
 
+    console.log(req.user)
     if(req.user){
         res.send({
             userData: req.user,
@@ -299,6 +301,40 @@ app.post('/follow', async(req,res)=>{
         console.log('user not found')
     }
 
+})
+
+app.post("/reply", async(req,res)=>{
+    const replyAuthorId = req.body.replyAuthorId 
+    const reply = req.body.reply
+    const quoteId = req.body.quoteId
+
+    console.log(replyAuthorId)
+    const foundAuthor = await User.findOne({googleId: replyAuthorId})
+    const replyAuthorName = foundAuthor.username
+    console.log(replyAuthorName)
+
+    const replyElement = {
+        authorId: replyAuthorId,
+        author: replyAuthorName,
+        replyContent: reply,
+    }
+
+    const foundQuote = await Quotes.findOne({_id: quoteId})
+    const foundReplies = foundQuote.replies
+    foundReplies.push(replyElement)
+
+    await Quotes.findOneAndUpdate({_id: quoteId}, {replies: foundReplies})
+    res.send("successfully sent")
+
+})
+
+
+app.post("/getReplies", async(req,res)=>{
+    const quoteId = req.body.quoteId 
+    const quoteFound = await Quotes.findOne({_id: quoteId})
+    const foundReplies = quoteFound.replies
+
+    res.send(foundReplies)
 })
 
 app.listen(3000||process.env.PORT, ()=>{console.log("server started")})

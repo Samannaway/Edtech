@@ -26,6 +26,7 @@ const Read = (props)=>{
                 return <QuoteComp 
                     key = {index}
                     data={e}
+                    userData = {props.data}
                     userId={props.data.googleId}
                     following={following}
                 />

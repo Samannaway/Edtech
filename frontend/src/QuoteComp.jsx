@@ -65,9 +65,10 @@ const QuoteComp = (props)=>{
                     onClick={()=>reply()}
                 ><ion-icon  name="close-circle-outline"></ion-icon></button>
                 <Reply 
-                    doubtAuthor = {"ma man"}
-                    doubtContent = {"meaw"}
+                    doubtContent = {props}
                     data = {props.data}
+                    userData = {props.userData}
+                    userId = {props.userId}
                 /></span>
             )}
 

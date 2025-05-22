@@ -1,48 +1,79 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import backend from "./host";
 
 const Reply = (props)=>{
 
     const [authorReply, setAuthorReply] = useState("")
+    const [replies, setReplies] = useState([
+        {   
+            author: "noone",
+            replyContent: "none"
+        }
+    ])
+
+    useEffect(()=>{
+        axios.post(`${backend}/getReplies`,
+            {
+                quoteId: props.data._id
+            }
+        ).then(
+            e => {
+                console.log(e.data)
+                const gotReplies = e.data.reverse()
+                setReplies(gotReplies)
+
+            }
+        )
+    }, [])
+
+    const replyUpdate = ()=>{
+
+        console.log("send trigger")
+        axios.post(`${backend}/reply`, 
+            {
+                quoteId: props.data._id, 
+                replyAuthorId: props.userId,
+                reply: authorReply,
+
+                
+            }).then(e => {
+                console.log(e.data)
+        })
+
+        const currRepliesArr = [
+            {
+                author: props.userData.username,
+                replyContent: authorReply,
+            },...replies]
+            
+
+        setReplies(currRepliesArr)
+        setAuthorReply("")
+    }
+
 
     return(
         <div className="replyArea">
             
             <span className="questionAsked">
-                <p className="authorName">Samannway Ghosh</p>
-                <p className="quoteHere">{props.data.quote}</p>
+                <p className="authorName authorNameReplyNegativeMask">asked by {props.data.author}</p>
+                <p className="quoteHere replyQuestion">{props.data.quote}</p>
             </span>
             <span className="replies">
-                <h1>Replies</h1>
+                <h1 className="text2">Replies</h1>
 
-                <div className="repliesBlock">
-                    <p className="authorName repliesAuthor">Samannway Ghosh</p>
-                    <p className="quoteHere">This the answer</p>
-                </div>
+                {replies.map(e => {
+                    return (
+                    <div className="repliesBlock">
+                        <p className="authorName repliesAuthor">{e.author}</p>
+                        <p className="quoteHere replyContent">{e.replyContent}</p>
+                    </div>
+                    )
+                })}
+
                 
-                <div className="repliesBlock">
-                    <p className="authorName repliesAuthor">Samannway Ghosh</p>
-                    <p className="quoteHere">This the answer</p>
-                </div><div className="repliesBlock">
-                    <p className="authorName repliesAuthor">Samannway Ghosh</p>
-                    <p className="quoteHere">This the answer</p>
-                </div><div className="repliesBlock">
-                    <p className="authorName repliesAuthor">Samannway Ghosh</p>
-                    <p className="quoteHere">This the answer</p>
-                </div><div className="repliesBlock">
-                    <p className="authorName repliesAuthor">Samannway Ghosh</p>
-                    <p className="quoteHere">This the answer</p>
-                </div><div className="repliesBlock">
-                    <p className="authorName repliesAuthor">Samannway Ghosh</p>
-                    <p className="quoteHere">This the answer</p>
-                </div><div className="repliesBlock">
-                    <p className="authorName repliesAuthor">Samannway Ghosh</p>
-                    <p className="quoteHere">This the answer</p>
-                </div><div className="repliesBlock">
-                    <p className="authorName repliesAuthor">Samannway Ghosh</p>
-                    <p className="quoteHere">This the answer</p>
-                </div>
-
+            
 
                 
             </span>
@@ -50,9 +81,14 @@ const Reply = (props)=>{
                 <textarea 
                     className="replyWritingArea" 
                     value={authorReply}
-                    onChange={e => setAuthorReply(e.target.value)}
+                    onChange={e => {
+                        setAuthorReply(e.target.value)
+                    }}
                 ></textarea>
-                <button className="replySendButton"><ion-icon name="send"></ion-icon></button>
+                <button 
+                    className="replySendButton"
+                    onClick={()=>replyUpdate()}    
+                ><ion-icon name="send"></ion-icon></button>
             </span>
         </div>
     )
