@@ -45,7 +45,7 @@ passport.deserializeUser((user,cb)=>{
 })
 
 
-mongoose.connect("mongodb://127.0.0.1/quotes")
+mongoose.connect(`mongodb+srv://samannawayghosh:${process.env.CLUSTER_ACC_KEY}@testingcluster1.npqt6az.mongodb.net/?retryWrites=true&w=majority&appName=TestingCluster1`)
 .then(()=>console.log("connected to mongoose"))
 
 const quotesSchema = new mongoose.Schema({
