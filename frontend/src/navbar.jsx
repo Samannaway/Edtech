@@ -14,7 +14,7 @@ const NavBar = ()=>{
     return(
         <div className="navBarDiv">
             <span className="navBarLeft">
-                <h1 className="companyName">Young Arrow</h1>
+                <h1 className="companyName">Edtech Pro</h1>
                 <p className="companyNameDown">computaverse technologies</p>
             </span>
             <span className="navBarRight">

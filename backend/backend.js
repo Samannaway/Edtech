@@ -45,7 +45,7 @@ passport.deserializeUser((user,cb)=>{
 })
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/quotes")
+mongoose.connect("mongodb://127.0.0.1/quotes")
 .then(()=>console.log("connected to mongoose"))
 
 const quotesSchema = new mongoose.Schema({

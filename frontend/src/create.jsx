@@ -16,8 +16,15 @@ const Create = (props)=>{
     
     return(
         <div className="createDiv">
-            <h1 className="createDivHeader">hey! there write here!</h1>
-            <textarea type="text" className="createArea" value={content} onChange={(e)=>{createContent(e.target.value)}}></textarea>
+            
+            <h1 className="createDivHeader">hey there! your doubts are welcomed!</h1>
+            <textarea 
+                type="text" 
+                className="createArea" 
+                value={content} 
+                onChange={(e)=>{createContent(e.target.value)}}
+                placeholder="type your doubt here"                    
+                ></textarea>
             <button className="createButton" onClick={()=>{sendBackend()}}>Post</button>
         </div>
     )

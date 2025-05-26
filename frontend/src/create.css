@@ -1,0 +1,53 @@
+.createArea{
+  width: 50vw;
+  height: 40vh;
+  outline: none;
+  border: none;
+  padding: 1rem;
+  font-size: 120%;
+  font-family: "Syne", serif;
+  background-color: #000000;
+  color: #fff;
+  resize: none;
+  font-weight: 600;
+  y-overflow: scroll;
+  border-radius: 0.5rem;
+  display: grid;
+  margin: 4rem 0rem 0rem 0rem;
+}
+
+
+.createDiv{
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    width: 69.6rem;
+    padding: 2rem;
+    background-color: #111315;
+    margin: 1.2rem 0rem 0rem 19rem;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.createButton{
+  border: none;
+  outline: none;
+  height: 3rem;
+  width: 6rem;
+  font-size: 110%;
+  background-color: #2B2A2F;
+  color: #fff;
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  border-radius: 5px;
+  margin: 1rem 0rem 0rem 0rem;
+  transition: all ease-in 0.2s;
+}
+
+
+.createButton:hover{
+  cursor: pointer;
+  background-color: #635a5a;
+  color: #000000;
+  transition: all ease-in 0.2s;
+}

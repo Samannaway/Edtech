@@ -18,9 +18,9 @@ const App = (props)=>{
     axios.post(`${backend}/auth/google/verify`, {}, {withCredentials: true})
     .then(res =>{
       if (res.data == null) {
-        setSelector(<Read />)
+        setSelector(<Create />)
       }else{
-        setSelector(<Read data={res.data.userData}/>)
+        setSelector(<Create data={res.data.userData}/>)
         setUserData(res.data.userData)
       }
     })

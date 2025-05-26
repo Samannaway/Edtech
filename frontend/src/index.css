@@ -179,29 +179,8 @@ body{
   font-size: 90%;
 }
 
-.createArea{
-  width: 50vw;
-  height: 40vh;
-  outline: none;
-  border: none;
-  padding: 1rem;
-  font-size: 120%;
-  font-family: "Syne", serif;
-  background-color: #111315;
-  color: #fff;
-  resize: none;
-  font-weight: 600;
-  y-overflow: scroll;
-  border-radius: 0.5rem;
-  margin-top: 13rem;
-  display: grid;
-  margin: 8rem 0rem 0rem 20rem;
-}
 
 
-.createDiv{
-  height: 80vh;
-}
 
 .profileDiv{
   display: grid;
@@ -275,7 +254,7 @@ body{
 .content{
   display: grid;
   height: 100vh;
-  z-index: -2;
+  /* z-index: -2; */
 }
 
 .quoteActions{
@@ -347,7 +326,7 @@ body{
   background-color: #171717;
   align-items: center;
   border-radius: 10px;
-  z-index: 100;
+  /* z-index: 100; */
   position: absolute;
   margin-left: 10rem;
 }
