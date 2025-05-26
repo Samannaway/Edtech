@@ -19,6 +19,7 @@ const App = (props)=>{
     .then(res =>{
       if (res.data == null) {
         setSelector(<Create />)
+        console.log(res.data)
       }else{
         setSelector(<Create data={res.data.userData}/>)
         setUserData(res.data.userData)
