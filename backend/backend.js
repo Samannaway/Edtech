@@ -18,10 +18,16 @@ app.use(session({
     secret: process.env.SESSIONSECRET,
     resave: false,
     saveUninitialized: false,    
-    // cookie:{
-    //     httpOnly: true,
-    //     secure: false,
-    // }
+    proxy: true,
+    saveUninitialized: false,
+    store: new MemoryStore({
+        checkPeriod: 86400000 // prune expired entries every 24h
+    }),
+    cookie: {
+        secure: true, // required for cookies to work on HTTPS
+        httpOnly: false,
+        sameSite: "none"
+  }
 }))
 app.use(passport.initialize())
 app.use(passport.session())
