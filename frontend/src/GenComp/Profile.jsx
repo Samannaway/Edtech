@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import backend from "./host";
-import QuoteComp from "./QuoteComp";
+import backend from "../host";
+import QuoteComp from "../Doubts/QuoteComp";
 import ProfileQuoteComp from "./profileQuoteComp";
 import Followers from "./Followers";
 

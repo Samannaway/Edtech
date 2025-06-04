@@ -1,5 +1,5 @@
 import React from "react";
-import backend from "./host";
+import backend from "../host";
 
 const Login = ()=>{
     return(

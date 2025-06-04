@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios";
 import React, { useEffect, useState } from "react";
-import backend from "./host";
+import backend from "../host.js";
 import Reply from "./Reply.jsx";
 
 const QuoteComp = (props)=>{

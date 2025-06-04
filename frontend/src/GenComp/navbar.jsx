@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Read from "./read";
-import Create from "./create";
-import { page, changePage } from "./universalv";
+import Read from "../Doubts/read";
+import Create from "../Doubts/create";
+import { page, changePage } from "../universalv";
 
 const NavBar = ()=>{
 

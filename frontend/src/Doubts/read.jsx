@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import QuoteComp from "./QuoteComp";
-import './index.css'
 import axios from "axios";
-import backend from "./host";
+import backend from "../host";
 
 const Read = (props)=>{
 

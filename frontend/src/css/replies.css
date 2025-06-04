@@ -71,6 +71,7 @@
     font-size: 100%;
     font-family: "syne", sans-serif;
     font-weight: 500;
+    height: 3.5rem;
     width: 40rem;
     border-radius: 0.5rem;
 
@@ -116,4 +117,50 @@
 
 .authorNameReplyNegativeMask{
     margin-bottom: -0.8rem;
+}
+
+.replyButtonSpan{
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.hidden{
+    display: none;
+}
+
+.imageConfirm{
+    height: 27rem;
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #111315;
+    position: absolute;
+    left: 13rem;
+    top: -30rem;
+    bottom: 10rem;
+    text-align: center;
+}
+
+
+.imgConfirmButton{
+    width: 4rem;
+    height:2rem;
+    font-size: 80%;
+}
+
+.confirmImg{
+    height: 20rem;
+    width: auto;
+    border-radius: 0.4rem;
+}
+
+.text3{
+    font-size: 120%;
+    margin: none;
+    font-weight: 700;
 }

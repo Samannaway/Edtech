@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
-import NavBar from "./navbar"
-import Read from "./read"
-import Create from "./create"
-import Login from "./login"
+import NavBar from "./GenComp/navbar"
+import Read from "./Doubts/read"
+import Create from "./Doubts/create"
+import Login from "./GenComp/login"
 import axios from "axios"
 import backend from "./host"
-import Profile from "./Profile"
-import Followers from "./Followers"
-import Reply from "./Reply"
+import Profile from "./GenComp/Profile"
+import Followers from "./GenComp/Followers"
+import Reply from "./Doubts/Reply"
 
 const App = (props)=>{
 
@@ -18,10 +18,9 @@ const App = (props)=>{
     axios.post(`${backend}/auth/google/verify`, {}, {withCredentials: true})
     .then(res =>{
       if (res.data == null) {
-        setSelector(<Create />)
-        console.log(res.data)
+        setSelector(<Read />)
       }else{
-        setSelector(<Create data={res.data.userData}/>)
+        setSelector(<Read data={res.data.userData}/>)
         setUserData(res.data.userData)
       }
     })

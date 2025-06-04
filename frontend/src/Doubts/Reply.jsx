@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import backend from "./host";
+import backend from "../host";
+import ImageConfirm from "./ImageConfirm";
 
 const Reply = (props)=>{
 
@@ -11,7 +12,9 @@ const Reply = (props)=>{
             replyContent: "none"
         }
     ])
+    const [imgUpload, setImgUpload] = useState()
 
+    const [showImgConf, setShowImgConf] = useState("none")
     useEffect(()=>{
         axios.post(`${backend}/getReplies`,
             {
@@ -29,7 +32,7 @@ const Reply = (props)=>{
 
     const replyUpdate = ()=>{
 
-        console.log("send trigger")
+        authorReply != ""&&
         axios.post(`${backend}/reply`, 
             {
                 quoteId: props.data._id, 
@@ -39,9 +42,8 @@ const Reply = (props)=>{
                 
             }).then(e => {
                 console.log(e.data)
-        })
-
-        const currRepliesArr = [
+        }).then(()=>{
+            const currRepliesArr = [
             {
                 author: props.userData.username,
                 replyContent: authorReply,
@@ -50,6 +52,16 @@ const Reply = (props)=>{
 
         setReplies(currRepliesArr)
         setAuthorReply("")
+
+        })
+
+    }
+
+    const showConfirmation = (e)=>{
+        let targetBlob = URL.createObjectURL(e.target.files[0])
+        console.log(targetBlob)
+        setImgUpload(targetBlob)
+        setShowImgConf("pass")
     }
 
 
@@ -71,24 +83,44 @@ const Reply = (props)=>{
                     </div>
                     )
                 })}
-
-                
-            
-
                 
             </span>
             <span className="replySend">
                 <textarea 
+                    placeholder="hey there! type your reply here."
                     className="replyWritingArea" 
                     value={authorReply}
                     onChange={e => {
                         setAuthorReply(e.target.value)
                     }}
                 ></textarea>
-                <button 
-                    className="replySendButton"
-                    onClick={()=>replyUpdate()}    
-                ><ion-icon name="send"></ion-icon></button>
+                <span className="replyButtonSpan">
+
+                    <input
+                        type="file"
+                        accept="image/*"
+                        id="replySendImg"
+                        className="hidden"
+                        onClick={ e => showConfirmation(    ) }
+                    ></input>
+
+                    <div className={showImgConf === "none" ? "hidden" : "none"}>
+                        <ImageConfirm 
+                            blob={imgUpload}    
+                        />
+                    </div>
+                    
+
+                    <label
+                        for="replySendImg"
+                        className="replySendButton"
+                    ><ion-icon name="image"></ion-icon></label>
+                    <button 
+                        className="replySendButton"
+                        onClick={()=>replyUpdate()}    
+                    ><ion-icon name="send"></ion-icon></button>
+
+                </span>
             </span>
         </div>
     )

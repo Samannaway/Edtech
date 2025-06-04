@@ -14,18 +14,28 @@ app.use(cors({
     methods: "PUT, GET, POST,",
     credentials: true
 }))
-app.use(session({
-    secret: process.env.SESSIONSECRET,
-    resave: false,
-    saveUninitialized: false,    
-    proxy: true,
-    saveUninitialized: false,
-    cookie: {
-        secure: true, // required for cookies to work on HTTPS
-        httpOnly: false,
-        sameSite: "none"
-  }
+
+app.use(session(
+    
+    process.env.ENV==="LC"?{
+        secret: process.env.SESSIONSECRET,
+        resave: false,
+        saveUninitialized: false, 
+    }:{
+        secret: process.env.SESSIONSECRET,
+        resave: false,
+        saveUninitialized: false,     
+        proxy: true,
+        saveUninitialized: false,
+        cookie: {
+            secure: true, // required for cookies to work on HTTPS
+            httpOnly: false,
+            sameSite: "none"
+    }
+    
 }))
+
+
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -47,7 +57,8 @@ passport.deserializeUser((user,cb)=>{
     })
 })
 
-
+process.env.ENV==="LC"? 
+mongoose.connect(`mongodb://127.0.0.1:27017/quotes`).then(()=>console.log("connected to mongoose local")):
 mongoose.connect(`mongodb+srv://samannawayghosh:${process.env.CLUSTER_ACC_KEY}@testingcluster1.npqt6az.mongodb.net/?retryWrites=true&w=majority&appName=TestingCluster1`)
 .then(()=>console.log("connected to mongoose"))
 
@@ -340,4 +351,4 @@ app.post("/getReplies", async(req,res)=>{
     res.send(foundReplies)
 })
 
-app.listen(3000||process.env.PORT, ()=>{console.log("server started")})
+app.listen(process.env.PORT, ()=>{console.log("server started")})

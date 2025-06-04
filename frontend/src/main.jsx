@@ -1,10 +1,12 @@
 import { StrictMode, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import './create.css'
-import "./replies.css"
+
+import './css/index.css'
+import './css/create.css'
+import "./css/replies.css"
+
 import App from './App.jsx'
-import Login from './login.jsx'
+import Login from './GenComp/login.jsx'
 import axios from 'axios'
 import backend from './host.js'
 
