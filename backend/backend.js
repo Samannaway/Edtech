@@ -141,7 +141,6 @@ app.get('/auth/google/callback',
 
 app.post('/auth/google/verify', (req,res)=>{
 
-    console.log(req.user)
     if(req.user){
         res.send({
             userData: req.user,

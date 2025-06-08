@@ -154,8 +154,9 @@
 }
 
 .confirmImg{
-    height: 20rem;
+    max-height: 20rem;
     width: auto;
+    max-width: 20rem;
     border-radius: 0.4rem;
 }
 

@@ -101,12 +101,14 @@ const Reply = (props)=>{
                         accept="image/*"
                         id="replySendImg"
                         className="hidden"
-                        onClick={ e => showConfirmation(    ) }
+                        onChange={ e => showConfirmation(e) }
                     ></input>
 
-                    <div className={showImgConf === "none" ? "hidden" : "none"}>
+
+                    <div className={showImgConf === "none" && "imgDiv hidden"}>
                         <ImageConfirm 
-                            blob={imgUpload}    
+                            blob={imgUpload}
+                            showFlag={"none"}
                         />
                     </div>
                     
