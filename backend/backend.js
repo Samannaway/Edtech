@@ -318,19 +318,43 @@ app.post('/follow', async(req,res)=>{
 
 app.post("/reply", async(req,res)=>{
     const replyAuthorId = req.body.replyAuthorId 
+    const replyType = req.body.replyType
     const reply = req.body.reply
     const quoteId = req.body.quoteId
 
-    console.log(replyAuthorId)
     const foundAuthor = await User.findOne({googleId: replyAuthorId})
     const replyAuthorName = foundAuthor.username
-    console.log(replyAuthorName)
 
-    const replyElement = {
-        authorId: replyAuthorId,
-        author: replyAuthorName,
-        replyContent: reply,
+    function replySelector() {
+        if (replyType === "text"){
+            const elem = {
+                type : "text",
+                authorId: replyAuthorId,
+                author: replyAuthorName,
+                replyContent: reply,
+            }
+
+            return elem
+        }else if (replyType === "image"){
+
+            const imageUploader = require("./cloudinaryImg")
+            const url = imageUploader.uploadImage(reply)
+
+            const elem = {
+                type : "image",
+                authorId: replyAuthorId, 
+                author: replyAuthorName,
+                imageUrl: url
+            }
+
+            return elem
+        }
+        
     }
+
+    const replyElement = replySelector()
+
+    
 
     const foundQuote = await Quotes.findOne({_id: quoteId})
     const foundReplies = foundQuote.replies

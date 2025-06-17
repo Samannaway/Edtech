@@ -38,7 +38,7 @@ const Reply = (props)=>{
                 quoteId: props.data._id, 
                 replyAuthorId: props.userId,
                 reply: authorReply,
-
+                replyType : "text",
                 
             }).then(e => {
                 console.log(e.data)
@@ -108,6 +108,8 @@ const Reply = (props)=>{
                     <div className={showImgConf === "none" && "imgDiv hidden"}>
                         <ImageConfirm 
                             blob={imgUpload}
+                            data={props.data}
+                            userId={props.userId}
                             showFlag={"none"}
                         />
                     </div>
