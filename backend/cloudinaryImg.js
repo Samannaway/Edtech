@@ -12,7 +12,7 @@ cloudinary.config({
 console.log(cloudinary.config())
 
 
-const uploadImage = async (imageInput) => {
+async function uploadImage(imageInput) {
 
     try{
         const result = await cloudinary.uploader.upload(imageInput)
@@ -24,4 +24,4 @@ const uploadImage = async (imageInput) => {
 }
 
 
-module.exports = uploadImage
+module.exports = {uploadImage}

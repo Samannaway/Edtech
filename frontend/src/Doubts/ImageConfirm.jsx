@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import backend from "../host";
-
+import imageCompression from "browser-image-compression"
 
 const ImageConfirm = (props)=>{
 
@@ -36,18 +36,17 @@ const ImageConfirm = (props)=>{
     }
 
 
-    const sendImg = ()=>{
-        blobToBase(props.blob).then( async (res) => {
-            
-            let compressedImg = await compressAndConvertToBase64(res)
+    const sendImg = async ()=>{
+        let compressedImg = await compressAndConvertToBase64(props.imgData)
 
-            await axios.post(`${backend}/reply`, {
-                quoteId : props.data._id,
-                replyAuthorId : props.userId,
-                reply : compressedImg,
-                replyType : "image"
-            })
+        await axios.post(`${backend}/reply`, {
+            quoteId : props.data._id,
+            replyAuthorId : props.userId,
+            reply : compressedImg,
+            replyType : "image"
         })
+
+        setShow("cancel")
     }
 
     useEffect(()=>{
@@ -63,7 +62,10 @@ const ImageConfirm = (props)=>{
             <span className="imageUploadConfirmation flex">
                 <button 
                     className="likeButton imgConfirmButton"
-                    onClick={()=> {sendImg()}}
+                    onClick={()=> {
+                        sendImg()
+                        setShow("cancel")
+                    }}
                 > Yes! </button>
                 <button 
                     className="likeButton imgConfirmButton"

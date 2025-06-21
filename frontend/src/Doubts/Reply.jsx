@@ -13,6 +13,7 @@ const Reply = (props)=>{
         }
     ])
     const [imgUpload, setImgUpload] = useState()
+    const [imgBlob, setImgBlob] = useState()
 
     const [showImgConf, setShowImgConf] = useState("none")
     useEffect(()=>{
@@ -45,6 +46,7 @@ const Reply = (props)=>{
         }).then(()=>{
             const currRepliesArr = [
             {
+                type:"text",
                 author: props.userData.username,
                 replyContent: authorReply,
             },...replies]
@@ -60,7 +62,8 @@ const Reply = (props)=>{
     const showConfirmation = (e)=>{
         let targetBlob = URL.createObjectURL(e.target.files[0])
         console.log(targetBlob)
-        setImgUpload(targetBlob)
+        setImgUpload(e.target.files[0])
+        setImgBlob(targetBlob)
         setShowImgConf("pass")
     }
 
@@ -79,7 +82,11 @@ const Reply = (props)=>{
                     return (
                     <div className="repliesBlock">
                         <p className="authorName repliesAuthor">{e.author}</p>
-                        <p className="quoteHere replyContent">{e.replyContent}</p>
+                        {e.type === "image"? <img className="replyImage" src={`${e.replyContent}`}></img> 
+                            : 
+                            <p className="quoteHere replyContent">{e.replyContent}</p>
+                        }
+
                     </div>
                     )
                 })}
@@ -107,7 +114,8 @@ const Reply = (props)=>{
 
                     <div className={showImgConf === "none" && "imgDiv hidden"}>
                         <ImageConfirm 
-                            blob={imgUpload}
+                            imgData={imgUpload}
+                            blob={imgBlob}
                             data={props.data}
                             userId={props.userId}
                             showFlag={"none"}

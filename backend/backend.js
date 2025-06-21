@@ -8,7 +8,7 @@ const session = require('express-session')
 const e = require('express')
 
 const app = express()
-app.use(express.json())
+app.use(express.json({limit: '1mb'}))
 app.use(cors({
     origin: process.env.FRONTEND,
     methods: "PUT, GET, POST,",
@@ -50,6 +50,7 @@ passport.serializeUser( (user, cb)=>{
         })
     })
 })
+
 
 passport.deserializeUser((user,cb)=>{
     process.nextTick(()=>{
@@ -315,6 +316,7 @@ app.post('/follow', async(req,res)=>{
     }
 
 })
+const {uploadImage} = require('./cloudinaryImg')
 
 app.post("/reply", async(req,res)=>{
     const replyAuthorId = req.body.replyAuthorId 
@@ -325,34 +327,25 @@ app.post("/reply", async(req,res)=>{
     const foundAuthor = await User.findOne({googleId: replyAuthorId})
     const replyAuthorName = foundAuthor.username
 
-    function replySelector() {
+    async function replySelector() {
         if (replyType === "text"){
-            const elem = {
-                type : "text",
-                authorId: replyAuthorId,
-                author: replyAuthorName,
-                replyContent: reply,
-            }
-
-            return elem
+            return reply
         }else if (replyType === "image"){
-
-            const imageUploader = require("./cloudinaryImg")
-            const url = imageUploader.uploadImage(reply)
-
-            const elem = {
-                type : "image",
-                authorId: replyAuthorId, 
-                author: replyAuthorName,
-                imageUrl: url
-            }
-
-            return elem
+            let imageLink = await uploadImage(reply).then(r =>  r.url)
+            console.log(imageLink)
+            return imageLink
         }
         
     }
 
-    const replyElement = replySelector()
+    let processedReply = await replySelector()
+    console.log("processed reply : "+ processedReply)
+    const replyElement = {
+        type : replyType,
+        authorId: replyAuthorId,
+        author: replyAuthorName,
+        replyContent: processedReply,
+    }
 
     
 

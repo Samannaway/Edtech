@@ -165,3 +165,9 @@
     margin: none;
     font-weight: 700;
 }
+
+.replyImage{
+    height: 12rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+}
