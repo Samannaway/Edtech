@@ -144,22 +144,18 @@ body{
   cursor: pointer;
 }
 
-.ReadDiv{
+.ReadDiv {
   position: absolute;
   display: flex;
+  flex-direction: column; /* Ensures vertical stacking */
   background-color: #15141B;
   margin-top: 1rem;
   margin-left: 20vw;
-  width: 79vw!important;
+  width: 79vw !important;
   height: 40rem;
-  /*columns: 20rem;
-  column-count: 2;
-  /* column-gap: 1rem; Equal horizontal spacing */
-  /* overflow-y: scroll; */ 
-  flex-direction: column;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  overflow-y: scroll;
+  overflow-y: auto; /* Enables vertical scrolling */
+  padding: 1rem; /* Optional: adds some spacing */
+  gap: 1rem; /* Optional: adds spacing between chat items */
 }
 
 .quoteComponent{
