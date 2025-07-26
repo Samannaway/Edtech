@@ -10,8 +10,9 @@ const QuoteComp = (props)=>{
     let [likeList, setLikeList] = useState(props.data.likeList)
     let [followList, setFollowList] = useState(props.following)
     let [flag, setFlag] = useState(null)
-    let [followFlag, setFollowFlag] = useState(null)
+    let [replyButtonShowFlag, setReplyButtonShowFlag] = useState(null)
     let [replyFlag, setReplyFlag] = useState(null)
+    let [replyButtonHideFlag, setReplyButtonHideFlag] = useState(null)
 
     const like = ()=>{
 
@@ -48,7 +49,10 @@ const QuoteComp = (props)=>{
         setFlag(exists)
 
         let followExists = followList.find(e => e === props.data.authorId)
-        setFollowFlag(followExists)
+        setReplyButtonShowFlag(followExists)
+
+        props.userData.type === "teacher" && setReplyButtonShowFlag("show") 
+
     }, [])
 
 
@@ -80,11 +84,9 @@ const QuoteComp = (props)=>{
                         {flag === undefined? <ion-icon name="arrow-up-circle-outline"></ion-icon> : <ion-icon name="arrow-up-circle"></ion-icon>} upvote
                         </button>
                     </span>
-                    {followFlag === undefined && 
-                        <button className="followButton"
+                    <button className={`followButton ${replyButtonHideFlag}`}
                             onClick={()=>reply()}
-                        >Reply <ion-icon name="person-add"></ion-icon></button>
-                    }
+                    >Reply <ion-icon name="person-add"></ion-icon></button>
                 
                 </div>            
         </div>

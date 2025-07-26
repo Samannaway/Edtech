@@ -46,7 +46,8 @@ passport.serializeUser( (user, cb)=>{
             googleId: user.googleId,
             username: user.username,
             profilePic: user.profilePic,
-            email: user.email
+            email: user.email,
+            type: user.type
         })
     })
 })
@@ -80,6 +81,7 @@ let userSchema = new mongoose.Schema({
     email: String, 
     profilePic: String,
     accessToken: String, 
+    type: String,
     refreshToken: String,
     quotes: Array,
     followers: Array,
@@ -97,6 +99,12 @@ userSchema.statics.findOrCreate = async(query, userdata)=>{
 }
 
 const User = mongoose.model("user", userSchema)
+
+const teacherVerifySchema = new mongoose.Schema({
+    email: String,
+})
+const Teacher = mongoose.model("teacher", teacherVerifySchema)
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -104,6 +112,10 @@ passport.use(new GoogleStrategy({
   },
   async function(accessToken, refreshToken, profile, cb) {
     try{
+
+        let typeVal = await Teacher.findOne({email: profile.emails[0].value}) ? "teacher" : "student"
+        console.log(typeVal)
+        
         const user = await User.findOrCreate(
             { googleId: profile.id }, 
             {
@@ -114,6 +126,7 @@ passport.use(new GoogleStrategy({
                 quotes: [],
                 followers:[],
                 following: [],
+                type: typeVal, 
                 accessToken : accessToken,
                 refreshToken: refreshToken,
             }

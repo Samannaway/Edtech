@@ -14,6 +14,7 @@ const Reply = (props)=>{
     ])
     const [imgUpload, setImgUpload] = useState()
     const [imgBlob, setImgBlob] = useState()
+    const [allowReply, setAllowReply] = useState(false)
 
     const [showImgConf, setShowImgConf] = useState("none")
     useEffect(()=>{
@@ -29,12 +30,16 @@ const Reply = (props)=>{
 
             }
         )
+
+        props.userData.type === "teacher" && setAllowReply(true)
     }, [])
 
     const replyUpdate = ()=>{
+        if (props.userData.type === "teacher"){
 
-        authorReply != ""&&
-        axios.post(`${backend}/reply`, 
+
+            authorReply != "" &&
+            axios.post(`${backend}/reply`, 
             {
                 quoteId: props.data._id, 
                 replyAuthorId: props.userId,
@@ -43,19 +48,23 @@ const Reply = (props)=>{
                 
             }).then(e => {
                 console.log(e.data)
-        }).then(()=>{
-            const currRepliesArr = [
-            {
-                type:"text",
-                author: props.userData.username,
-                replyContent: authorReply,
-            },...replies]
-            
+                
+            }).then( ()=>{
+                const currRepliesArr = [
+                {
+                    type:"text",
+                    author: props.userData.username,
+                    replyContent: authorReply,
+                },...replies]
+                
 
-        setReplies(currRepliesArr)
-        setAuthorReply("")
-
-        })
+                setReplies(currRepliesArr)
+                setAuthorReply("")
+            })
+        
+        
+        }
+        
 
     }
 
@@ -92,7 +101,7 @@ const Reply = (props)=>{
                 })}
                 
             </span>
-            <span className="replySend">
+            {allowReply === true && (<span className="replySend">
                 <textarea 
                     placeholder="hey there! type your reply here."
                     className="replyWritingArea" 
@@ -133,7 +142,7 @@ const Reply = (props)=>{
                     ><ion-icon name="send"></ion-icon></button>
 
                 </span>
-            </span>
+            </span>)}
         </div>
     )
 }

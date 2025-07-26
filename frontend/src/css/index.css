@@ -150,25 +150,42 @@ body{
   flex-direction: column; /* Ensures vertical stacking */
   background-color: #15141B;
   margin-top: 1rem;
+<<<<<<< HEAD
   margin-left: 20vw;
   width: 79vw !important;
   height: 40rem;
   overflow-y: auto; /* Enables vertical scrolling */
   padding: 1rem; /* Optional: adds some spacing */
   gap: 1rem; /* Optional: adds spacing between chat items */
+=======
+  margin-left: 22vw;
+  width: 74vw!important;
+  height: 40rem;
+  padding: 1rem;
+  /*columns: 20rem;
+  column-count: 2;
+  /* column-gap: 1rem; Equal horizontal spacing */
+  /* overflow-y: scroll; */ 
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+  gap: 1rem;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+>>>>>>> bf72563 (teacher verification)
 }
 
 .quoteComponent{
+  text-align: center;
   /* align-content: center; */
   text-align: left;
   overflow-y: scroll;
   /* max-height: 40vh; */
-  /* min-width: 21vw; */
+  min-width: 18vw;
   width: fit-content;
   max-width: 20rem;
   background: linear-gradient(135deg,rgba(35, 34, 41, 1) 44%, rgba(75, 63, 112, 1) 100%);
   padding: 2rem;
-  margin: 1rem  0rem 0rem 0rem;
+  margin: 0.5rem  0rem 0rem 0rem;
   border: #5F5188 solid 2px;
   border-radius: 0.6rem;
 }
