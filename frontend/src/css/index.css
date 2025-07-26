@@ -150,14 +150,6 @@ body{
   flex-direction: column; /* Ensures vertical stacking */
   background-color: #15141B;
   margin-top: 1rem;
-<<<<<<< HEAD
-  margin-left: 20vw;
-  width: 79vw !important;
-  height: 40rem;
-  overflow-y: auto; /* Enables vertical scrolling */
-  padding: 1rem; /* Optional: adds some spacing */
-  gap: 1rem; /* Optional: adds spacing between chat items */
-=======
   margin-left: 22vw;
   width: 74vw!important;
   height: 40rem;
@@ -171,7 +163,6 @@ body{
   gap: 1rem;
   flex-wrap: wrap;
   overflow-y: scroll;
->>>>>>> bf72563 (teacher verification)
 }
 
 .quoteComponent{
