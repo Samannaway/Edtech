@@ -198,17 +198,15 @@ body{
 
 
 .profileDiv{
-  display: flex;            
+  display: flex;
   flex-direction: column;
+  height: 100vh;                     
+  width: calc(100vw - 15vw);        
+  margin-left: 15vw;
   background-color: #111315;
-  height: 100vh;                  
-  width: calc(100vw - 15vw);      
-  margin-left: 15vw;             
-  border-radius: 0;              
   padding: 1.5rem;
-  overflow-y: auto;
-  justify-content: center;        
-  align-items: center;  
+  box-sizing: border-box;
+  overflow: hidden;                   
 }
 
 
@@ -326,6 +324,15 @@ body{
   font-size: 80%;
   height: 1.5rem;
   width: 3rem;
+}
+.userdetails {
+  flex-shrink: 0;                   
+  margin-bottom: 1rem;
+}
+.userPosts {
+  flex: 1;                           
+  overflow-y: auto;                  
+  overflow-x: hidden;
 }
 
 .followerList{
