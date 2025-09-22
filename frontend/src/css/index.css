@@ -167,10 +167,17 @@ body{
 }
 
 .quoteComponent{
-  width: 60%;
-  max-width: 30rem;
-  min-width: 18rem;
-  margin: 1rem auto;
+  text-align: center;
+  text-align: left;
+  overflow-y: scroll;
+  min-width: 18vw;
+  width: fit-content;
+  max-width: 20rem;
+  background: linear-gradient(135deg,rgba(35, 34, 41, 1) 44%, rgba(75, 63, 112, 1) 100%);
+  padding: 2rem;
+  margin: 0.5rem 0rem 0rem 0rem;
+  border: #5F5188 solid 2px;
+  border-radius: 0.6rem;
 }
 
 
