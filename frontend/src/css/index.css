@@ -106,9 +106,15 @@ body{
 }
 
 .userPosts{
-  columns: 2;
-  column-gap: 10px;
-  max-width: 40vw;
+  flex: 1;                      
+  overflow-y: auto;             
+  overflow-x: hidden;        
+
+  display: flex;               
+  flex-direction: column;      
+  align-items: center;          
+  padding-bottom: 1rem;         
+  gap: 1rem;
 }
 
 .grid{
@@ -321,11 +327,6 @@ body{
   font-size: 80%;
   height: 1.5rem;
   width: 3rem;
-}
-.userPosts {
-  flex: 1;                           
-  overflow-y: auto;                  
-  overflow-x: hidden;
 }
 
 .followerList{
