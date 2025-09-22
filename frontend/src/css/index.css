@@ -56,11 +56,20 @@ body{
 
 
 .headerDiv{
-  width: 15vw;
-  height: 100vh; 
+ display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 0;               
   position: fixed;
   top: 0;
   left: 0;
+  background-color: #111315;
+  width: 15vw;
+  border-radius: 0;          
+  height: 100vh;            
+  align-items: left;
+  text-align: left;
+  line-height: 1.8rem;
 }
 
 .headerDiv p{
@@ -182,16 +191,17 @@ body{
 
 
 .profileDiv{
-  display: flex;                 
-  flex-direction: column;       
-  align-items: center;         
-  justify-content: flex-start;  
+  display: flex;            
+  flex-direction: column;
   background-color: #111315;
-  height: 100vh;
-  width: calc(100vw - 15vw);
-  margin-left: 15vw;
+  height: 100vh;                  
+  width: calc(100vw - 15vw);      
+  margin-left: 15vw;             
+  border-radius: 0;              
   padding: 1.5rem;
   overflow-y: auto;
+  justify-content: center;        
+  align-items: center;  
 }
 
 
