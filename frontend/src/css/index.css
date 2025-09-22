@@ -158,19 +158,10 @@ body{
 }
 
 .quoteComponent{
-  text-align: center;
-  /* align-content: center; */
-  text-align: left;
-  overflow-y: scroll;
-  /* max-height: 40vh; */
-  min-width: 18vw;
-  width: fit-content;
-  max-width: 20rem;
-  background: linear-gradient(135deg,rgba(35, 34, 41, 1) 44%, rgba(75, 63, 112, 1) 100%);
-  padding: 2rem;
-  margin: 0.5rem  0rem 0rem 0rem;
-  border: #5F5188 solid 2px;
-  border-radius: 0.6rem;
+  width: 60%;
+  max-width: 30rem;
+  min-width: 18rem;
+  margin: 1rem auto;
 }
 
 
@@ -191,17 +182,16 @@ body{
 
 
 .profileDiv{
-  display: grid;
-  flex-direction: column;
-  background-color: #fff;
+  display: flex;                 
+  flex-direction: column;       
+  align-items: center;         
+  justify-content: flex-start;  
+  background-color: #111315;
   height: 100vh;
   width: calc(100vw - 15vw);
-  margin-left: 15vw; 
-  border-radius: 0rem;
-  background-color: #111315;
+  margin-left: 15vw;
   padding: 1.5rem;
   overflow-y: auto;
-  align-items: center;
 }
 
 
