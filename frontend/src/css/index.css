@@ -56,19 +56,11 @@ body{
 
 
 .headerDiv{
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  margin: 1rem;
-  position: fixed;
-  top: 3;
-  background-color: #111315;
   width: 15vw;
-  border-radius: 1rem;
-  height: 85vh;
-  align-items: left;
-  text-align: left;
-  line-height: 1.8rem;
+  height: 100vh; 
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .headerDiv p{
@@ -202,15 +194,13 @@ body{
   display: grid;
   flex-direction: column;
   background-color: #fff;
-  max-height: 69.5vh;
-  min-height: 69.5vh;
-  max-width: 51vw;
-  min-width: auto;
-  margin: auto auto;
-  border-radius: 1rem;
+  height: 100vh;
+  width: calc(100vw - 15vw);
+  margin-left: 15vw; 
+  border-radius: 0rem;
   background-color: #111315;
   padding: 1.5rem;
-  overflow-y: scroll;
+  overflow-y: auto;
   align-items: center;
 }
 
