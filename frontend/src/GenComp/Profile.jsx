@@ -17,7 +17,7 @@ const Profile = (props)=>{
     useEffect(()=>{
         axios.post(`${backend}/fetchPosts`, {userId: props.data.googleId})
         .then(res => {
-            setUserPosts(res.data.quotes)
+            setUserPosts(res.data.doubt)
             setFollowers(res.data.followers)
             setFollowing(res.data.following)
         })
@@ -67,7 +67,7 @@ const Profile = (props)=>{
             </div>
             <div className="userPosts">
                 {userPosts.map((e, i) => {
-                    return <ProfileQuoteComp quote={e.quote} author={e.author}/>
+                    return <ProfileQuoteComp quote={e.doubt} author={e.author}/>
                 })}
             </div>
         </div>

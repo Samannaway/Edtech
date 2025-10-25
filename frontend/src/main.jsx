@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import './css/index.css'
 import './css/create.css'
 import "./css/replies.css"
+import "./css/classAssist.css"
 
 import App from './App.jsx'
 import Login from './GenComp/login.jsx'

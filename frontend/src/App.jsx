@@ -8,6 +8,7 @@ import backend from "./host"
 import Profile from "./GenComp/Profile"
 import Followers from "./GenComp/Followers"
 import Reply from "./Doubts/Reply"
+import ClassAssistant from "./ClassAssist/ClassAssistant"
 
 const App = (props)=>{
 
@@ -18,9 +19,11 @@ const App = (props)=>{
     axios.post(`${backend}/auth/google/verify`, {}, {withCredentials: true})
     .then(res =>{
       if (res.data == null) {
-        setSelector(<Read />)
+        setSelector(<ClassAssistant />)
       }else{
-        setSelector(<Read data={res.data.userData}/>)
+        console.log("user verified")
+        console.log(res.data.userData)
+        setSelector(<ClassAssistant data={res.data.userData}/>)
         setUserData(res.data.userData)
       }
     })
@@ -49,6 +52,7 @@ const App = (props)=>{
             <a className="selectButton" onClick={()=>{setSelector(<Read data={userData}/>)}}>Doubts</a>
             <a className="selectButton" onClick={()=>{setSelector(<Create data={userData}/>)}}>Ask Doubts</a>
             <a className="selectButton" onClick={()=>{setSelector(<Profile data={userData}/>)}}>Profile</a>
+            <a className="selectButton" onClick={()=>{setSelector(<ClassAssistant data={userData}/>)}}>Cl Assist</a>
         </div>
       </div>
       <div className="content">

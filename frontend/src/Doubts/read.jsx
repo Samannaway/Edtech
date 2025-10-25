@@ -13,8 +13,10 @@ const Read = (props)=>{
     useEffect(()=>{
         axios.post(`${backend}/getPosts`, {userId: props.data.googleId})
         .then((res)=>{
-            setQuotesArray(res.data.quotes)    
-            setFollowing(res.data.following)        
+            console.log(res.data)
+            setQuotesArray(res.data.doubts)    
+            setFollowing(res.data.following)      
+            console.log(quotesArray)  
         })
         .catch(err => console.log(err))
     }, [])

@@ -5,7 +5,6 @@ const mongoose = require('mongoose')
 const passport = require("passport")
 const GoogleStrategy = require("passport-google-oauth20").Strategy
 const session = require('express-session')
-const e = require('express')
 
 const app = express()
 app.use(express.json({limit: '1mb'}))
@@ -60,12 +59,12 @@ passport.deserializeUser((user,cb)=>{
 })
 
 process.env.ENV==="LC"? 
-mongoose.connect(`mongodb://127.0.0.1:27017/quotes`).then(()=>console.log("connected to mongoose local")):
+mongoose.connect(`mongodb://127.0.0.1:27017/edTech`).then(()=>console.log("connected to mongoose local")):
 mongoose.connect(`mongodb+srv://samannawayghosh:${process.env.CLUSTER_ACC_KEY}@testingcluster1.npqt6az.mongodb.net/?retryWrites=true&w=majority&appName=TestingCluster1`)
 .then(()=>console.log("connected to mongoose"))
 
-const quotesSchema = new mongoose.Schema({
-    quote: String, 
+const doubtsSchema = new mongoose.Schema({
+    doubt: String, 
     author: String, 
     authorId: String,
     likes: Number,
@@ -74,7 +73,7 @@ const quotesSchema = new mongoose.Schema({
 })
 
 
-const Quotes = mongoose.model("quote", quotesSchema)
+const Doubts = mongoose.model("doubt", doubtsSchema)
 let userSchema = new mongoose.Schema({
     googleId: String,
     username: String,
@@ -83,7 +82,7 @@ let userSchema = new mongoose.Schema({
     accessToken: String, 
     type: String,
     refreshToken: String,
-    quotes: Array,
+    doubts: Array,
     followers: Array,
     following: Array,
 })
@@ -123,7 +122,7 @@ passport.use(new GoogleStrategy({
                 username: profile.displayName,
                 profilePic: profile.photos[0].value,
                 email: profile.emails[0].value,
-                quotes: [],
+                doubts: [],
                 followers:[],
                 following: [],
                 type: typeVal, 
@@ -183,16 +182,16 @@ app.post("/makePost", async(req,res)=>{
     const foundUser = await User.findOne({googleId: authorId})
 
     if (foundUser) {
-        const post = new Quotes(
+        const post = new Doubts(
             {
-                quote: content,
+                doubt: content,
                 author: foundUser.username,
                 authorId: authorId,
                 likes: 0,
                 likeList: [],
             }
         )
-        await Quotes.insertOne(post).catch(err => console.log(err))
+        await Doubts.insertOne(post).catch(err => console.log(err))
         res.send("backend : success")
 
     }else{
@@ -206,12 +205,12 @@ app.post("/getPosts", async(req,res)=>{
     let userId = req.body.userId
 
     try{
-        let foundItems = await Quotes.find({})
+        let foundItems = await Doubts.find({})
         let foundUser = await User.findOne({googleId: userId})
 
         res.send(
             {
-                quotes: foundItems, 
+                doubts: foundItems, 
                 following: foundUser.following
             }
         )
@@ -223,20 +222,21 @@ app.post("/getPosts", async(req,res)=>{
 app.post("/fetchPosts", async (req,res)=>{
 
     const userId = req.body.userId
-
-    const foundQuotes = await Quotes.find({authorId: userId})
+    console.log("triggered")
+    const foundDoubts = await Doubts.find({authorId: userId})
     const foundUser = await User.findOne({googleId: userId})
-    if (foundQuotes) {
+    console.log(foundDoubts, foundUser)
+    if (foundDoubts) {
         res.send(
             {
-                quotes: foundQuotes,
+                doubt: foundDoubts,
                 followers: foundUser.followers,
                 following: foundUser.following
             }
         )
     }else{
-        console.log("no quotes found err occured")
-        res.send("no quotes found err occured")
+        console.log("no doubts found err occured")
+        res.send("no doubts found err occured")
     }
 })
 
@@ -245,7 +245,7 @@ app.post("/like", async (req,res)=>{
     const quoteId = req.body.quoteId
     const userId = req.body.userId
 
-    const foundQuote = await Quotes.findOne({_id: quoteId})
+    const foundQuote = await Doubts.findOne({_id: quoteId})
 
     if (foundQuote) {
 
@@ -253,12 +253,12 @@ app.post("/like", async (req,res)=>{
         let likeList = foundQuote.likeList
         likeList.push(userId)
 
-        const updatedItems = await Quotes.updateOne({_id: quoteId}, {likes: (likeCount+1), likeList: likeList})
+        const updatedItems = await Doubts.updateOne({_id: quoteId}, {likes: (likeCount+1), likeList: likeList})
         res.send(`documents modified : ${updatedItems.modifiedCount}}`)
 
     }else{
-        console.log("err quote not found")
-        res.send("err : quote not found")
+        console.log("err doubt not found")
+        res.send("err : doubt not found")
     }
 })
 
@@ -291,16 +291,16 @@ app.post('/unlike', async (req,res)=>{
     const quoteId = req.body.quoteId
     const userId = req.body.userId
     
-    const foundQuote = await Quotes.findOne({_id: quoteId})
+    const foundQuote = await Doubts.findOne({_id: quoteId})
     if (foundQuote){
         let likeCount = foundQuote.likes
         let likeList = foundQuote.likeList
         let newLikeList = likeList.filter((e)=>e!=userId)
-        const updatedItems = await Quotes.updateOne({_id: quoteId}, {likes: (likeCount-1), likeList: newLikeList})
+        const updatedItems = await Doubts.updateOne({_id: quoteId}, {likes: (likeCount-1), likeList: newLikeList})
         res.send(`documents modified : ${updatedItems.modifiedCount}`)
     }else{
-        console.log("err quote not found")
-        res.send("err : quote not found")
+        console.log("err doubt not found")
+        res.send("err : doubt not found")
     }
 
 })
@@ -362,11 +362,11 @@ app.post("/reply", async(req,res)=>{
 
     
 
-    const foundQuote = await Quotes.findOne({_id: quoteId})
+    const foundQuote = await Doubts.findOne({_id: quoteId})
     const foundReplies = foundQuote.replies
     foundReplies.push(replyElement)
 
-    await Quotes.findOneAndUpdate({_id: quoteId}, {replies: foundReplies})
+    await Doubts.findOneAndUpdate({_id: quoteId}, {replies: foundReplies})
     res.send("successfully sent")
 
 })
@@ -374,7 +374,7 @@ app.post("/reply", async(req,res)=>{
 
 app.post("/getReplies", async(req,res)=>{
     const quoteId = req.body.quoteId 
-    const quoteFound = await Quotes.findOne({_id: quoteId})
+    const quoteFound = await Doubts.findOne({_id: quoteId})
     const foundReplies = quoteFound.replies
 
     res.send(foundReplies)

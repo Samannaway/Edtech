@@ -60,7 +60,7 @@ const QuoteComp = (props)=>{
         <div className="quoteComponentComplete">
             <div className="quoteComponent">
                 <p className="authorName">{props.data.author}</p>
-                <p className="quoteHere">{props.data.quote}</p>
+                <p className="quoteHere">{props.data.doubt}</p>
             </div>
 
             {replyFlag === "pass" && (<span>
